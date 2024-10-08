@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Root pysandbox directory
+root_dir=$(dirname $(realpath "$0"))
+# Name of the pysandbox tmux session
+tmux_session="pys"
+
+if [ ! -f "$root_dir/main.py" ]; then
+    printf "from pysandbox import *\n\n\n" > "$root_dir/main.py"
+fi
+
+if ! tmux has-session -t "$tmux_session"; then
+    tmux new-session -d -t "$tmux_session" -c "$root_dir"
+    tmux split-window -h -t "$tmux_session"
+    tmux send-keys -t "$tmux_session:0.0" "vim main.py" Enter
+    tmux send-keys -t "$tmux_session:0.1" "./watch.py" Enter
+fi
+
+tmux attach -t "$tmux_session:0.0"

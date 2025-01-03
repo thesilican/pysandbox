@@ -1,4 +1,5 @@
 import math
+import cmath
 import re
 import os
 import collections
@@ -87,7 +88,12 @@ from sympy.logic.boolalg import (
     to_cnf,
 )
 
-sym.init_printing()
+# Number of terminal columns for label
+_MAX_LABEL_LEN = 10
+# Numer of terminal columns for output
+_MAX_VALUE_LEN = 50
+
+np.set_printoptions(linewidth=_MAX_VALUE_LEN)
 
 
 def frac(x, y):
@@ -103,17 +109,15 @@ def frac(x, y):
 
 _out_values = []
 
-
 def pysandbox_out(value, label):
     """
     Adds a value to the list of things printed by pysandbox
     """
-    MAX_LABEL_LEN = 25
     label = str(label).strip()
-    if len(label) > MAX_LABEL_LEN:
-        label = label[: MAX_LABEL_LEN - 1] + "…"
+    if len(label) > _MAX_LABEL_LEN:
+        label = label[:_MAX_LABEL_LEN - 1] + "…"
 
-    lines = pretty(value).splitlines()
+    lines = pretty(value, num_columns=_MAX_VALUE_LEN).splitlines()
     _out_values.append((label, lines))
 
 

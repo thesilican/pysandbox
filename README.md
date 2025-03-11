@@ -9,24 +9,39 @@ I personally use it for symbolic algebra using sympy.
 
 ## Getting Started
 
-Firstly you'll need to have installed python (obviously), vim, and tmux.
+### In the terminal
+I use pysandbox primarily in the terminal using the `pysandbox` helper script.
 
-You'll also need to have any dependencies in `pysandbox.py` installed, by
-default they are numpy and sympy.
+You'll need the following installed:
+- python (`python` needs to be in your path, if your distribution has `python3` in the path, edit it in `watch.py`)
+- neovim (If you wish to use a different editor, change the editor variable in `pysandbox`)
+- tmux
+- Any python dependencies imported in `pysandbox.py`
 
-Then type `./pysandbox` to start a pysandbox tmux session. You can now
+Type `./pysandbox` to start a pysandbox tmux session. You can now
 edit `main.py` in the left pane, in the right pane all variables and expressions
 will be live updated whenever you save the file.
 
-Feel free to modify `pysandbox.py` with whatever imports or functions you find
-useful.
+Feel free to modify `pysandbox.py` with whatever imports or functions you find useful.
+
+### Any text editor
+
+Create a filed named `main.py` in your editor that imports from `pysandbox.py`, for example:
+
+```py
+from pysandbox import *
+
+# For demonstration purposes
+x = 2
+y = 3
+x + y
+```
+
+Run `python watch.py` to see the output. All variables and expressions
+will be live updated whenever you save the `main.py` file.
 
 ## How it works
 
-The idea is to have a python script (`watch.py`) that constantly watches
-the `main.py` file for updates.
+The idea is to have a python script (`watch.py`) that constantly watches the `main.py` file for updates.
 When the file is updated, we transform the file by adding `pysandbox_out` calls
-after each expression and assignment AST node which will print out the value
-in a pretty format.
-
-[sympy]: https://www.sympy.org/en/index.html
+after each expression and assignment AST node which will print out the value in a pretty format.

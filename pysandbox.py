@@ -25,6 +25,7 @@ from sympy import (
     Lambda,
     Sum,
     Function,
+    simplify,
     # Functions
     sqrt,
     exp,
@@ -87,6 +88,10 @@ from sympy.logic.boolalg import (
     truth_table,
     to_cnf,
 )
+from sympy.functions.elementary.complexes import (
+    conjugate
+)
+from sympy.physics.quantum.tensorproduct import TensorProduct
 
 # Number of terminal columns for label
 _MAX_LABEL_LEN = 10

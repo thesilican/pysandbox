@@ -10,6 +10,7 @@ import sympy as sym
 import sympy.plotting
 import sympy.abc
 import sympy.stats
+import shutil
 
 
 from collections import Counter
@@ -52,6 +53,7 @@ from sympy import (
     # Linear Algebra
     Matrix,
     eye,
+    diag,
     # Differential Calculus
     Heaviside,
     # Statistics
@@ -93,13 +95,14 @@ from sympy.functions.elementary.complexes import (
 )
 from sympy.physics.quantum.tensorproduct import TensorProduct
 
+# Get terminal size
+_term_size = shutil.get_terminal_size()
 # Number of terminal columns for label
-_MAX_LABEL_LEN = 10
+_MAX_LABEL_LEN = max(8, _term_size.columns // 6)
 # Numer of terminal columns for output
-_MAX_VALUE_LEN = 50
+_MAX_VALUE_LEN = _term_size.columns - _MAX_LABEL_LEN - 4
 
 np.set_printoptions(linewidth=_MAX_VALUE_LEN)
-
 
 def frac(x, y):
     """

@@ -4,6 +4,7 @@ import os
 import ast
 from time import sleep
 from subprocess import run
+import shutil
 
 
 def transform(source):
@@ -85,13 +86,16 @@ def watch(filepath):
     """Watch the main python file for changes, if changed run the file"""
     try:
         last_time = None
+        last_term_size = None
         while True:
             try:
                 curr_time = os.stat(filepath).st_mtime
             except FileNotFoundError:
                 continue
-            if last_time != curr_time:
+            term_size = shutil.get_terminal_size()
+            if last_time != curr_time or last_term_size != term_size:
                 last_time = curr_time
+                last_term_size = term_size
                 run_file(filepath)
             sleep(0.1)
     except KeyboardInterrupt:
